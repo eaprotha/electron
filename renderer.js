@@ -2,19 +2,31 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-const express = require("express");
-const app = express();
-const domain = 'https://ws.shapr.net';
+const request = require('request-promise')
+const baseUrl = 'https://ws.shapr.net'
 
-app.post('/login', function (req, res) {
+exports.login = function (email, password) {
+    console.log(email);
+    console.log(password);
     return request.post({
-        uri                    : domain,
+        uri                    : baseUrl + '/acws/account/signin/',
         headers                : {
-            'Accept-Language': 'fr_FR'
+            'Content-Type': 'application/json'
         },
-        method                 : "GET",
+        method                 : "POST",
         json                   : true,
-        body                   : null,
+        body                   : {
+            "username" : email,
+            "password" : password
+        },
         resolveWithFullResponse: true
+    }).then(function (response) {
+        if(response.body.status == "success") {
+            alert('success')
+        } else {
+            alert('Bad credentials');
+        }
+    }).catch(function (err) {
+        // API call failed...
     });
-});
+}

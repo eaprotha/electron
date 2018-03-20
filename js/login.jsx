@@ -22,7 +22,7 @@ class NameForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('/login');
+        renderer.login(this.state.email, this.state.password);
     }
 
     render() {
