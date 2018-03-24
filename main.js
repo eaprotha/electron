@@ -1,4 +1,5 @@
 const electron = require('electron')
+const {ipcMain} = electron;
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -58,3 +59,11 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on('home', (event, arg) => {
+    console.log(arg)
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, './html/home.html'),
+        protocol: 'file:',
+        slashes: true
+    }))
+})

@@ -2,10 +2,12 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        test: './js/login.jsx'
+        login: './js/login.jsx',
+        home: './js/home.jsx'
     },
     output: {
-        filename: 'bundle.js',
+        // filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     },
     node: {

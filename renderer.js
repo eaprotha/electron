@@ -4,10 +4,9 @@
 
 const request = require('request-promise')
 const baseUrl = 'https://ws.shapr.net'
+const {ipcRenderer} = window.require('electron');
 
 exports.login = function (email, password) {
-    console.log(email);
-    console.log(password);
     return request.post({
         uri                    : baseUrl + '/acws/account/signin/',
         headers                : {
@@ -21,8 +20,8 @@ exports.login = function (email, password) {
         },
         resolveWithFullResponse: true
     }).then(function (response) {
-        if(response.body.status == "success") {
-            alert('success')
+        if(response.body.status === "success") {
+            ipcRenderer.send('home', response.body)
         } else {
             alert('Bad credentials');
         }
