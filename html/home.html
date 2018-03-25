@@ -5,6 +5,9 @@
     <title>Home</title>
   </head>
   <body>
+  <div>
+    <a href="./advanced_form.html">Advanced Form</a>
+  </div>
   <div id="home">
   </div>
     <!--<h1>Hello World!</h1>-->
@@ -13,11 +16,11 @@
     <!--Chromium <script>document.write(process.versions.chrome)</script>,-->
     <!--and Electron <script>document.write(process.versions.electron)</script>.-->
 
-    <script>
-      // You can also require other files to run in this process
-      require('./../renderer.js');
-    </script>
-    <script src="../dist/login.js"></script>
+
     <script src="../dist/home.js"></script>
+  <script>
+      // You can also require other files to run in this process
+      require('./../renderer-home.js');
+  </script>
   </body>
 </html>

@@ -5,6 +5,7 @@
 const request = require('request-promise')
 const baseUrl = 'https://ws.shapr.net'
 const {ipcRenderer} = window.require('electron');
+const firebase = require("firebase");
 
 exports.login = function (email, password) {
     return request.post({
@@ -21,7 +22,18 @@ exports.login = function (email, password) {
         resolveWithFullResponse: true
     }).then(function (response) {
         if(response.body.status === "success") {
-            ipcRenderer.send('home', response.body)
+            let token = response.body.firebasetoken;
+
+            firebase.auth().signInWithCustomToken(token).then(function (user) {
+                if (user) {
+                    const nodeid = user.uid
+                    ipcRenderer.send('home')
+                }
+                }).catch(function (error) {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log(errorCode + errorMessage);
+            });
         } else {
             alert('Bad credentials');
         }
